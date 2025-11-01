@@ -1,0 +1,3764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Analysis Platform</title>
+  <style>
+    :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  /* Common style patterns */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+
+  /* RGB versions for opacity control */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+    --color-success-rgb: var(--color-teal-300-rgb);
+    --color-error-rgb: var(--color-red-400-rgb);
+    --color-warning-rgb: var(--color-orange-400-rgb);
+    --color-info-rgb: var(--color-gray-300-rgb);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
+    format('woff2');
+}
+
+html {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.sidebar-header {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-24);
+  color: var(--color-text);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.nav-item:hover {
+  background-color: var(--color-secondary);
+}
+
+.nav-item.active {
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--space-32);
+  overflow-y: auto;
+}
+
+.page-header {
+  margin-bottom: var(--space-32);
+}
+
+.page-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.page-subtitle {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-24);
+  margin-bottom: var(--space-24);
+}
+
+.card-header {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-16);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.stat-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-20);
+}
+
+.stat-label {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-8);
+}
+
+.stat-value {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  background-color: var(--color-bg-1);
+}
+
+.upload-area:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-2);
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-16);
+}
+
+.upload-text {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-8);
+}
+
+.upload-hint {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-20);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: none;
+  gap: var(--space-8);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.file-input {
+  display: none;
+}
+
+.uploaded-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-12);
+  background-color: var(--color-bg-3);
+  border-radius: var(--radius-base);
+  margin-top: var(--space-16);
+}
+
+.analysis-results {
+  margin-top: var(--space-24);
+}
+
+.result-item {
+  padding: var(--space-16);
+  background-color: var(--color-bg-2);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-12);
+}
+
+.result-label {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-4);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(50, 184, 198, 0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(50, 184, 198, 0.9);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #32b8c6, #21808d);
+  color: var(--color-btn-primary-text);
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(50, 184, 198, 0.6);
+  transition: all var(--duration-normal) var(--ease-standard);
+  z-index: 10000;
+  animation: pulse 2s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-button:hover {
+  background: linear-gradient(135deg, #29a3b0, #1d6f7a);
+  transform: scale(1.08);
+  box-shadow: 0 6px 30px rgba(50, 184, 198, 0.9);
+  animation: none;
+}
+
+.chat-button::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 20px;
+  height: 20px;
+  background: #ff4444;
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+  animation: pulse 2s infinite;
+}
+
+.chat-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100vh;
+  background-color: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  transition: right var(--duration-normal) var(--ease-standard);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-sidebar.open {
+  right: 0;
+}
+
+.chat-sidebar.open ~ .chat-button {
+  display: none !important;
+}
+
+.chat-header {
+  padding: var(--space-20);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  font-size: var(--font-size-2xl);
+  cursor: pointer;
+  color: var(--color-text);
+  padding: var(--space-4);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.message {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-lg);
+  max-width: 85%;
+}
+
+.message.user {
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  align-self: flex-end;
+}
+
+.message.assistant {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  align-self: flex-start;
+}
+
+.chat-input-area {
+  padding: var(--space-20);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--space-8);
+}
+
+.chat-input {
+  flex: 1;
+  padding: var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.competitor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-20);
+}
+
+.competitor-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-20);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.competitor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.competitor-section {
+  margin: var(--space-12) 0;
+  border: 1px solid var(--color-card-border-inner);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+.section-title {
+  padding: var(--space-12);
+  background: var(--color-bg-1);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.section-title:hover {
+  background: var(--color-bg-2);
+}
+
+.section-title.collapsed .toggle-icon {
+  transform: rotate(-90deg);
+}
+
+.toggle-icon {
+  transition: transform var(--duration-normal) var(--ease-standard);
+  font-size: var(--font-size-sm);
+}
+
+.section-content {
+  padding: var(--space-12);
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height var(--duration-normal) var(--ease-standard), padding var(--duration-normal) var(--ease-standard);
+}
+
+.section-content.collapsed {
+  max-height: 0;
+  padding: 0 var(--space-12);
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.info-value {
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.competitor-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.competitor-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-base);
+  background: var(--color-bg-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-2xl);
+}
+
+.competitor-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+.metric:last-child {
+  border-bottom: none;
+}
+
+.metric-label {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.metric-value {
+  font-weight: var(--font-weight-semibold);
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.plot-container {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-20);
+  margin-bottom: var(--space-20);
+}
+
+.plot-preview {
+  width: 100%;
+  height: 300px;
+  background: var(--color-bg-1);
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-16);
+}
+
+.plot-actions {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.action-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-24);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.form-group {
+  margin-bottom: var(--space-16);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--space-12);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--focus-ring);
+}
+
+.suggested-question {
+  padding: var(--space-8) 0;
+  color: var(--color-text-secondary);
+}
+
+.plot-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-20);
+  text-align: center;
+}
+
+.plot-card-title {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-12);
+}
+
+.plot-placeholder {
+  width: 100%;
+  height: 200px;
+  background: var(--color-bg-1);
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.visualization-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-bottom: var(--space-20);
+}
+
+.visualization-card h4 {
+  margin: 0 0 var(--space-16) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: var(--space-16);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-8) var(--space-12);
+  text-align: left;
+  border: 1px solid var(--color-border);
+}
+
+.data-table th {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+.data-table tr:nth-child(even) {
+  background: var(--color-secondary);
+}
+
+.chart-container {
+  min-height: 300px;
+  margin-top: var(--space-16);
+  padding: var(--space-16);
+  background: var(--color-background);
+  border-radius: var(--radius-base);
+}
+
+.chart-data {
+  margin-top: var(--space-12);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.data-preview {
+  margin-top: var(--space-8);
+  font-family: var(--font-family-mono);
+  padding: var(--space-8);
+  background: var(--color-bg-1);
+  border-radius: var(--radius-sm);
+}
+
+.chat-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-normal) var(--ease-standard), visibility var(--duration-normal) var(--ease-standard);
+  z-index: 999;
+}
+
+.chat-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Markdown styling in chat messages */
+.message-content h1, .message-content h2, .message-content h3 {
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+}
+
+.message-content p {
+  margin-bottom: var(--space-8);
+  line-height: 1.6;
+}
+
+.message-content ul, .message-content ol {
+  margin-left: var(--space-20);
+  margin-bottom: var(--space-8);
+}
+
+.message-content code {
+  background: var(--color-secondary);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+}
+
+.message-content pre {
+  background: var(--color-secondary);
+  padding: var(--space-12);
+  border-radius: var(--radius-base);
+  overflow-x: auto;
+  margin-bottom: var(--space-8);
+}
+
+.message-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.message-content strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.message-content em {
+  font-style: italic;
+}
+
+.message-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--space-12);
+  font-size: var(--font-size-sm);
+}
+
+.message-content table th,
+.message-content table td {
+  border: 1px solid var(--color-border);
+  padding: var(--space-8);
+  text-align: left;
+}
+
+.message-content table th {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+.message-content blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--space-12);
+  margin-left: 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Multi-stage loader styling */
+.multi-stage-loader {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin: var(--space-24) 0;
+  text-align: center;
+}
+
+.loader-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.loader-spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--space-24);
+  border: 4px solid var(--color-secondary);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-stages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  border-radius: var(--radius-base);
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.stage.active {
+  opacity: 1;
+  background: var(--color-secondary);
+  transform: scale(1.05);
+}
+
+.stage.completed {
+  opacity: 0.7;
+}
+
+.stage-icon {
+  font-size: 24px;
+}
+
+.stage-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Data table fallback styling */
+.data-table-fallback {
+  margin-top: var(--space-16);
+}
+
+/* Video Pitch Analyzer Styles */
+.video-input-section {
+  margin-top: var(--space-16);
+}
+
+.input-tabs {
+  display: flex;
+  gap: var(--space-12);
+  margin-bottom: var(--space-20);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.tab-btn {
+  padding: var(--space-12) var(--space-20);
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.3s ease;
+  font-family: var(--font-family-base);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--color-text);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.upload-zone {
+  margin-bottom: var(--space-16);
+}
+
+.upload-placeholder {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  background-color: var(--color-bg-1);
+}
+
+.upload-placeholder:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-2);
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-20);
+  margin-bottom: var(--space-20);
+}
+
+.analysis-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  margin-bottom: var(--space-20);
+}
+
+.slide-item {
+  display: flex;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  background: var(--color-secondary);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-12);
+}
+
+.slide-timestamp {
+  flex-shrink: 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  font-family: var(--font-family-mono);
+}
+
+.slide-content {
+  flex: 1;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.info-item {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.export-actions {
+  margin-top: var(--space-24);
+  padding: var(--space-20);
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">AI Platform</div>
+      <nav>
+        <div class="nav-item active" data-page="dashboard">
+          <span>📊</span>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-page="ai-analyzer">
+          <span>🤖</span>
+          <span>AI Analyzer</span>
+        </div>
+        <div class="nav-item" data-page="rag-analyzer">
+          <span>💬</span>
+          <span>RAG Analyzer</span>
+        </div>
+        <div class="nav-item" data-page="competitor">
+          <span>🔍</span>
+          <span>Competitor Analyzer</span>
+        </div>
+        <div class="nav-item" data-page="video-pitch">
+          <span>🎥</span>
+          <span>Video Pitch</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Dashboard Page -->
+      <div class="page active" id="dashboard">
+        <div class="page-header">
+          <h1 class="page-title">Welcome to AI Analysis Platform</h1>
+          <p class="page-subtitle">Your comprehensive suite for document analysis, RAG queries, and competitor intelligence</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">PDFs Analyzed</div>
+            <div class="stat-value">156</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Documents Queried</div>
+            <div class="stat-value">89</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Competitors Tracked</div>
+            <div class="stat-value">23</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Insights</div>
+            <div class="stat-value">1,847</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Quick Actions</div>
+          <div class="stats-grid">
+            <div class="action-card" data-goto="ai-analyzer">
+              <div style="font-size: 48px; margin-bottom: var(--space-16);">🤖</div>
+              <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-8);">AI Analyzer</div>
+              <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Extract plots and visualizations from PDFs</div>
+            </div>
+            <div class="action-card" data-goto="rag-analyzer">
+              <div style="font-size: 48px; margin-bottom: var(--space-16);">💬</div>
+              <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-8);">RAG Analyzer</div>
+              <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Query documents with AI chat</div>
+            </div>
+            <div class="action-card" data-goto="competitor">
+              <div style="font-size: 48px; margin-bottom: var(--space-16);">🔍</div>
+              <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-8);">Competitor Analyzer</div>
+              <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Analyze competitor strengths and insights</div>
+            </div>
+            <div class="action-card" data-goto="video-pitch" style="background: var(--color-bg-6);">
+              <div style="font-size: 48px; margin-bottom: var(--space-16);">🎥</div>
+              <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-8);">Video Pitch Summarizer</div>
+              <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Analyze YouTube pitch videos and extract key insights</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Recent Analysis</div>
+          <div class="result-item">
+            <div class="result-label">AI Analyzer</div>
+            <div>Extracted 12 plots from Financial_Report_Q4.pdf - 2 hours ago</div>
+          </div>
+          <div class="result-item">
+            <div class="result-label">RAG Analyzer</div>
+            <div>Queried Research_Paper.pdf with 8 questions - 5 hours ago</div>
+          </div>
+          <div class="result-item">
+            <div class="result-label">Competitor Analyzer</div>
+            <div>Analyzed Tech Startup XYZ - 1 day ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Analyzer Page (Plot Extractor) -->
+      <div class="page" id="ai-analyzer">
+        <div class="page-header">
+          <h1 class="page-title">AI Analyzer</h1>
+          <p class="page-subtitle">Extract and visualize plots, tables, and graphs from PDFs</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Upload PDF Document</div>
+          <div class="upload-area" id="aiUploadArea">
+            <div class="upload-icon">📄</div>
+            <div class="upload-text">Drop your PDF here or click to browse</div>
+            <div class="upload-hint">Supports PDF files (Max 10MB)</div>
+            <input type="file" class="file-input" id="aiFileInput" accept=".pdf">
+          </div>
+          <div id="aiUploadedFiles"></div>
+        </div>
+
+        <div id="aiResults" style="display: none;">
+          <div class="card">
+            <div class="card-header">Analysis Summary</div>
+            <div class="result-item">
+              <div class="result-label">Extracted Items</div>
+              <div id="aiExtractedCount">12 plots, 5 tables, 8 charts detected</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Processing Status</div>
+              <div class="status status--success">Complete</div>
+            </div>
+          </div>
+
+          <div id="visualizations-section" style="display: none;">
+            <div class="page-header" style="margin-top: var(--space-24);">
+              <h2 class="page-title" style="font-size: var(--font-size-3xl);">📊 Extracted Visualizations</h2>
+              <p class="page-subtitle">Tables, charts, and plots extracted from your document</p>
+            </div>
+            <div id="tables-container"></div>
+            <div id="plots-container"></div>
+          </div>
+
+          <div class="card" id="page-images-section" style="display: none;">
+            <div class="card-header">Page Previews</div>
+            <div id="plotsGrid" class="stats-grid"></div>
+          </div>
+
+          <div id="analysisSection" style="display: none;">
+            <div class="page-header" style="margin-top: var(--space-32);">
+              <h2 class="page-title" style="font-size: var(--font-size-3xl);">Document Analysis Summary</h2>
+              <p class="page-subtitle">Comprehensive insights and key findings from the analyzed document</p>
+            </div>
+            <div id="analysisCards" class="competitor-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RAG Analyzer Page -->
+      <div class="page" id="rag-analyzer">
+        <div class="page-header">
+          <h1 class="page-title">RAG Analyzer</h1>
+          <p class="page-subtitle">Upload documents and query them with AI-powered chat</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Document Upload</div>
+          <div class="upload-area" id="ragUploadArea">
+            <div class="upload-icon">📄</div>
+            <div class="upload-text">Drop your document here or click to browse</div>
+            <div class="upload-hint">Supports PDF, DOCX, TXT (Max 10MB)</div>
+            <input type="file" class="file-input" id="ragFileInput" accept=".pdf,.docx,.txt">
+          </div>
+          <div id="ragUploadedFiles"></div>
+        </div>
+
+        <div id="ragStatus" style="display: none;">
+          <div class="card">
+            <div class="card-header">Document Ready</div>
+            <div class="result-item">
+              <div class="result-label">Status</div>
+              <div class="status status--success">Document processed and ready for queries</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Suggested Questions</div>
+              <div>
+                <div class="suggested-question">• What are the main topics in this document?</div>
+                <div class="suggested-question">• Summarize the key findings</div>
+                <div class="suggested-question">• What are the conclusions?</div>
+              </div>
+            </div>
+            <div style="margin-top: var(--space-16); padding: var(--space-16); background: var(--color-bg-1); border-radius: var(--radius-base);">
+              <strong>💬 Click the chat button in the bottom right to start asking questions!</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor Analyzer Page -->
+      <div class="page" id="competitor">
+        <div class="page-header">
+          <h1 class="page-title">Competitor Analyzer</h1>
+          <p class="page-subtitle">Find and analyze competitors based on company name and URL</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Competitor Analysis Input</div>
+          <div class="form-group">
+            <label class="form-label">Company Name</label>
+            <input type="text" id="companyName" class="form-control" placeholder="e.g., Tech Startup Inc.">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company URL</label>
+            <input type="url" id="companyUrl" class="form-control" placeholder="e.g., https://example.com">
+          </div>
+          <button class="btn btn-primary" id="analyzeCompetitor" style="width: 100%;">🔍 Analyze Competitors</button>
+        </div>
+
+        <div id="competitor-loader" class="multi-stage-loader" style="display: none;">
+          <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-stages">
+              <div class="stage active" data-stage="1">
+                <span class="stage-icon">🔍</span>
+                <span class="stage-text">Scraping the web...</span>
+              </div>
+              <div class="stage" data-stage="2">
+                <span class="stage-icon">📊</span>
+                <span class="stage-text">Evaluating data...</span>
+              </div>
+              <div class="stage" data-stage="3">
+                <span class="stage-icon">🧠</span>
+                <span class="stage-text">Comparing insights...</span>
+              </div>
+              <div class="stage" data-stage="4">
+                <span class="stage-icon">✨</span>
+                <span class="stage-text">Generating analysis...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="competitorResults" style="display: none;">
+          <div class="card">
+            <div class="card-header">Competitor Analysis Results</div>
+            <div id="competitorCards" class="competitor-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Pitch Analyzer Page -->
+      <div class="page" id="video-pitch">
+        <div class="page-header">
+          <h1 class="page-title">Video Pitch Summarizer</h1>
+          <p class="page-subtitle">Analyze YouTube pitch videos or upload videos to extract key insights, slides, and summaries</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Video Input</div>
+          <div class="video-input-section">
+            <div class="input-tabs">
+              <button class="tab-btn active" data-tab="youtube">🎬 YouTube Link</button>
+              <button class="tab-btn" data-tab="upload">📤 Upload Video</button>
+            </div>
+            
+            <div class="tab-content active" id="youtube-tab">
+              <form id="youtube-form">
+                <div class="form-group">
+                  <label class="form-label">YouTube Video URL</label>
+                  <input type="url" name="youtube_url" class="form-control" 
+                         placeholder="https://www.youtube.com/watch?v=..." required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  🎬 Analyze Video Pitch
+                </button>
+              </form>
+            </div>
+            
+            <div class="tab-content" id="upload-tab">
+              <form id="video-upload-form">
+                <div class="upload-zone">
+                  <input type="file" id="video-file-input" accept="video/*" style="display: none;">
+                  <div class="upload-placeholder" onclick="document.getElementById('video-file-input').click()">
+                    <div class="upload-icon">🎥</div>
+                    <h4 style="margin: var(--space-12) 0;">Upload Video File</h4>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-8);">Click to select or drag and drop</p>
+                    <small style="color: var(--color-text-secondary);">MP4, MOV, AVI (Coming Soon)</small>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-16);">
+                  🎬 Analyze Video
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div id="video-loader" class="multi-stage-loader" style="display: none;">
+          <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-stages">
+              <div class="stage active" data-stage="1">
+                <span class="stage-icon">📤</span>
+                <span class="stage-text">Uploading video...</span>
+              </div>
+              <div class="stage" data-stage="2">
+                <span class="stage-icon">☁️</span>
+                <span class="stage-text">Processing with Gemini...</span>
+              </div>
+              <div class="stage" data-stage="3">
+                <span class="stage-icon">🤖</span>
+                <span class="stage-text">Analyzing content...</span>
+              </div>
+              <div class="stage" data-stage="4">
+                <span class="stage-icon">✨</span>
+                <span class="stage-text">Generating insights...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="video-results" style="display: none;">
+          <div class="analysis-card">
+            <h3 style="margin-bottom: var(--space-16); display: flex; align-items: center; gap: var(--space-8);">📹 Video Information</h3>
+            <div id="video-info"></div>
+          </div>
+          
+          <div class="analysis-card">
+            <h3 style="margin-bottom: var(--space-16); display: flex; align-items: center; gap: var(--space-8);">📝 Executive Summary</h3>
+            <div id="executive-summary"></div>
+          </div>
+          
+          <div class="insights-grid">
+            <div class="analysis-card">
+              <h3 style="margin-bottom: var(--space-16); display: flex; align-items: center; gap: var(--space-8);">💡 Key Insights</h3>
+              <ul id="key-insights" style="margin: 0; padding-left: var(--space-20);"></ul>
+            </div>
+            
+            <div class="analysis-card">
+              <h3 style="margin-bottom: var(--space-16); display: flex; align-items: center; gap: var(--space-8);">🎯 Main Points</h3>
+              <ul id="main-points" style="margin: 0; padding-left: var(--space-20);"></ul>
+            </div>
+          </div>
+          
+          <div class="analysis-card">
+            <h3 style="margin-bottom: var(--space-16); display: flex; align-items: center; gap: var(--space-8);">⭐ Notable Slides &amp; Moments</h3>
+            <div id="notable-slides"></div>
+          </div>
+          
+          <div class="analysis-card">
+            <h3 style="margin-bottom: var(--space-16); display: flex; align-items: center; gap: var(--space-8);">✅ Action Items &amp; Recommendations</h3>
+            <ul id="action-items" style="margin: 0; padding-left: var(--space-20);"></ul>
+          </div>
+          
+          <div class="export-actions">
+            <h4 style="margin-bottom: var(--space-16); color: var(--color-text); font-size: var(--font-size-lg);">📥 Export Analysis</h4>
+            <div style="display: flex; gap: var(--space-12); justify-content: center; flex-wrap: wrap;">
+              <button class="btn btn-secondary" onclick="exportVideoAnalysis('json')">
+                <span>📄</span> Export as JSON
+              </button>
+              <button class="btn btn-primary" onclick="exportVideoAnalysis('report')">
+                <span>📑</span> Export Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Chat Overlay -->
+    <div class="chat-overlay" id="chatOverlay"></div>
+
+    <!-- Chat Button (only visible in RAG Analyzer after upload) -->
+    <button class="chat-button" id="chatButton" style="display: none;">💬</button>
+
+    <!-- Chat Sidebar -->
+    <div class="chat-sidebar" id="chatSidebar">
+      <div class="chat-header">
+        <h2 class="chat-title">AI Assistant</h2>
+        <button class="chat-close" id="chatClose">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message assistant">
+          <div class="message-content">
+            <p>Hello! I'm your AI assistant. How can I help you analyze your documents today?</p>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+        <button class="btn btn-primary" id="sendMessage">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.0.0/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    // API Configuration
+    const API_BASE_URL = 'http://localhost:8000';
+
+    // State management
+    let currentPage = 'dashboard';
+    let ragDocumentUploaded = false;
+    // Store collection name globally for persistent access
+    window.currentCollectionName = null;
+    // Store latest analysis data for export
+    let latestCompetitorData = null;
+    let latestAIAnalyzerData = null;
+    let latestVideoAnalysis = null;
+
+    // Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const pages = document.querySelectorAll('.page');
+    const chatButton = document.getElementById('chatButton');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetPage = item.dataset.page;
+        navigateToPage(targetPage);
+      });
+    });
+
+    function navigateToPage(targetPage) {
+      currentPage = targetPage;
+      
+      // Update active nav item
+      navItems.forEach(nav => nav.classList.remove('active'));
+      document.querySelector(`[data-page="${targetPage}"]`).classList.add('active');
+      
+      // Show target page
+      pages.forEach(page => page.classList.remove('active'));
+      document.getElementById(targetPage).classList.add('active');
+
+      // Show chat button only in RAG Analyzer if document uploaded
+      if (targetPage === 'rag-analyzer' && ragDocumentUploaded) {
+        chatButton.style.display = 'flex';
+      } else {
+        chatButton.style.display = 'none';
+      }
+    }
+
+    // Dashboard quick actions
+    document.querySelectorAll('.action-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const target = card.dataset.goto;
+        navigateToPage(target);
+      });
+    });
+
+    // AI Analyzer (Plot Extractor)
+    const aiUploadArea = document.getElementById('aiUploadArea');
+    const aiFileInput = document.getElementById('aiFileInput');
+    const aiUploadedFiles = document.getElementById('aiUploadedFiles');
+    const aiResults = document.getElementById('aiResults');
+    const plotsGrid = document.getElementById('plotsGrid');
+
+    aiUploadArea.addEventListener('click', () => aiFileInput.click());
+    aiUploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      aiUploadArea.style.borderColor = 'var(--color-primary)';
+    });
+    aiUploadArea.addEventListener('dragleave', () => {
+      aiUploadArea.style.borderColor = '';
+    });
+    aiUploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      aiUploadArea.style.borderColor = '';
+      handleAIFiles(e.dataTransfer.files);
+    });
+    aiFileInput.addEventListener('change', (e) => {
+      e.preventDefault();
+      handleAIFiles(e.target.files);
+    });
+
+    async function handleAIFiles(files) {
+      if (files.length > 0) {
+        const file = files[0];
+        
+        if (!file.type.includes('pdf')) {
+          showToast('Please select a PDF file', 'error');
+          return;
+        }
+        
+        aiUploadedFiles.innerHTML = `
+          <div class="uploaded-file">
+            <span>📄 ${file.name}</span>
+            <span>${(file.size / 1024).toFixed(2)} KB</span>
+          </div>
+        `;
+        
+        // Show loading state
+        aiResults.style.display = 'block';
+        plotsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: var(--space-32); color: var(--color-text-secondary);">⏳ Extracting data and generating insights...</div>';
+        document.getElementById('aiExtractedCount').textContent = 'Processing...';
+        
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          const response = await fetch(`${API_BASE_URL}/api/ai-analyzer/analyze`, {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (!response.ok) {
+            throw new Error('API request failed');
+          }
+          
+          const result = await response.json();
+          
+          if (result.success && result.data) {
+            const data = result.data;
+            
+            // Store data for export
+            latestAIAnalyzerData = data;
+            
+            // Update extracted count
+            const extractedCount = data.extracted_pages ? data.extracted_pages.length : 0;
+            document.getElementById('aiExtractedCount').textContent = `${data.pages_analyzed || 0} pages analyzed, ${extractedCount} visualizations extracted`;
+            
+            // Display extracted plots
+            if (data.extracted_pages && data.extracted_pages.length > 0) {
+              displayExtractedPlots(data.extracted_pages);
+            } else {
+              plotsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: var(--space-32); color: var(--color-text-secondary);">No visualizations found in this document</div>';
+            }
+            
+            // Display analysis summary
+            if (data.analysis_summary) {
+              displayAnalysisSummary(data.analysis_summary, file.name);
+            }
+            
+            showToast('Analysis complete!', 'success');
+          } else {
+            throw new Error('Invalid response format');
+          }
+        } catch (error) {
+          console.error('AI Analyzer error:', error);
+          showToast('An error occurred while processing your request. Please check if the backend server is running.', 'error');
+          aiResults.style.display = 'none';
+        }
+      }
+    }
+
+    function generatePlots() {
+      const plotTypes = [
+        { title: 'Revenue Trend', type: 'line', data: [12, 19, 15, 22, 28, 25, 30] },
+        { title: 'Market Share', type: 'pie', data: [30, 25, 20, 15, 10] },
+        { title: 'Quarterly Sales', type: 'bar', data: [45, 52, 48, 61, 55, 49] },
+        { title: 'Growth Rate', type: 'line', data: [5, 8, 12, 15, 18, 22] }
+      ];
+
+      plotsGrid.innerHTML = '';
+      plotTypes.forEach((plot, index) => {
+        const plotCard = document.createElement('div');
+        plotCard.className = 'plot-card';
+        plotCard.innerHTML = `
+          <div class="plot-card-title">${plot.title}</div>
+          <canvas id="chart${index}" style="max-height: 200px;"></canvas>
+        `;
+        plotsGrid.appendChild(plotCard);
+
+        // Create chart
+        setTimeout(() => {
+          const ctx = document.getElementById(`chart${index}`).getContext('2d');
+          const chartColors = ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F'];
+          
+          let config = {};
+          if (plot.type === 'line') {
+            config = {
+              type: 'line',
+              data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                  label: plot.title,
+                  data: plot.data,
+                  borderColor: chartColors[0],
+                  backgroundColor: chartColors[0] + '33',
+                  tension: 0.3
+                }]
+              },
+              options: { responsive: true, maintainAspectRatio: false }
+            };
+          } else if (plot.type === 'bar') {
+            config = {
+              type: 'bar',
+              data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2'],
+                datasets: [{
+                  label: plot.title,
+                  data: plot.data,
+                  backgroundColor: chartColors
+                }]
+              },
+              options: { responsive: true, maintainAspectRatio: false }
+            };
+          } else if (plot.type === 'pie') {
+            config = {
+              type: 'pie',
+              data: {
+                labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Others'],
+                datasets: [{
+                  data: plot.data,
+                  backgroundColor: chartColors
+                }]
+              },
+              options: { responsive: true, maintainAspectRatio: false }
+            };
+          }
+          
+          new Chart(ctx, config);
+        }, 100);
+      });
+    }
+
+    // RAG Analyzer
+    const ragUploadArea = document.getElementById('ragUploadArea');
+    const ragFileInput = document.getElementById('ragFileInput');
+    const ragUploadedFiles = document.getElementById('ragUploadedFiles');
+    const ragStatus = document.getElementById('ragStatus');
+
+    ragUploadArea.addEventListener('click', () => ragFileInput.click());
+    ragUploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      ragUploadArea.style.borderColor = 'var(--color-primary)';
+    });
+    ragUploadArea.addEventListener('dragleave', () => {
+      ragUploadArea.style.borderColor = '';
+    });
+    ragUploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      ragUploadArea.style.borderColor = '';
+      handleRAGFiles(e.dataTransfer.files);
+    });
+    ragFileInput.addEventListener('change', (e) => {
+      e.preventDefault();
+      handleRAGFiles(e.target.files);
+    });
+
+    async function handleRAGFiles(files) {
+      if (files.length > 0) {
+        const file = files[0];
+        
+        if (!file.type.includes('pdf')) {
+          showToast('Please select a PDF file', 'error');
+          return;
+        }
+        
+        ragUploadedFiles.innerHTML = `
+          <div class="uploaded-file">
+            <span>📄 ${file.name}</span>
+            <span>⏳ Uploading and indexing document...</span>
+          </div>
+        `;
+        
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          console.log('📤 Uploading RAG document:', file.name);
+          
+          const response = await fetch(`${API_BASE_URL}/api/rag/upload`, {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (!response.ok) {
+            throw new Error('Upload failed');
+          }
+          
+          const result = await response.json();
+          console.log('📥 RAG Upload Response:', result);
+          
+          if (result.success && result.data) {
+            // Store collection name globally for persistence
+            window.currentCollectionName = result.data.collection_name;
+            console.log('✅ Collection name stored:', window.currentCollectionName);
+            
+            ragUploadedFiles.innerHTML = `
+              <div class="uploaded-file">
+                <span>📄 ${file.name}</span>
+                <span>✅ ${(file.size / 1024).toFixed(2)} KB - ${result.data.chunks_created || 0} chunks created</span>
+              </div>
+            `;
+            
+            ragStatus.style.display = 'block';
+            ragDocumentUploaded = true;
+            
+            // Show chat button and ensure it stays visible
+            chatButton.style.display = 'flex';
+            chatButton.style.visibility = 'visible';
+            chatButton.style.opacity = '1';
+            chatButton.classList.remove('hidden');
+            
+            console.log('💬 Chat button display state:', chatButton.style.display);
+            console.log('💬 Chat button should now be visible at bottom-right');
+            
+            showToast(`Document uploaded! ${result.data.chunks_created || 0} chunks created`, 'success');
+          } else {
+            throw new Error('Invalid response format');
+          }
+        } catch (error) {
+          console.error('❌ RAG Upload error:', error);
+          showToast('Network error. Please check if the backend server is running at http://localhost:8000', 'error');
+          ragUploadedFiles.innerHTML = '';
+        }
+      }
+    }
+
+    // Competitor Analyzer
+    const analyzeCompetitorBtn = document.getElementById('analyzeCompetitor');
+    const competitorResults = document.getElementById('competitorResults');
+    const competitorCards = document.getElementById('competitorCards');
+
+    analyzeCompetitorBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const companyName = document.getElementById('companyName').value.trim();
+      const companyUrl = document.getElementById('companyUrl').value.trim();
+
+      if (!companyName || !companyUrl) {
+        showToast('Please enter both company name and URL', 'error');
+        return;
+      }
+
+      const loader = document.getElementById('competitor-loader');
+      const resultsDiv = document.getElementById('competitorResults');
+      
+      // Show loader and hide results
+      loader.style.display = 'block';
+      resultsDiv.style.display = 'none';
+      analyzeCompetitorBtn.disabled = true;
+      
+      // Reset all stages
+      document.querySelectorAll('.stage').forEach(stage => {
+        stage.classList.remove('active', 'completed');
+      });
+      document.querySelector('.stage[data-stage="1"]').classList.add('active');
+      
+      // Stage progression
+      let currentStage = 1;
+      const stageInterval = setInterval(() => {
+        const prevStage = document.querySelector(`.stage[data-stage="${currentStage}"]`);
+        if (prevStage) {
+          prevStage.classList.remove('active');
+          prevStage.classList.add('completed');
+        }
+        
+        currentStage++;
+        if (currentStage <= 4) {
+          const nextStage = document.querySelector(`.stage[data-stage="${currentStage}"]`);
+          if (nextStage) {
+            nextStage.classList.add('active');
+          }
+        }
+        
+        if (currentStage > 4) {
+          clearInterval(stageInterval);
+        }
+      }, 2000); // Change stage every 2 seconds
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/competitor/analyze`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            company_name: companyName,
+            company_url: companyUrl
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('API request failed');
+        }
+
+        const result = await response.json();
+        
+        clearInterval(stageInterval);
+        loader.style.display = 'none';
+
+        if (result.success && result.data) {
+          displayCompetitorResults(result.data);
+          showToast('Competitor analysis complete!', 'success');
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } catch (error) {
+        console.error('Competitor Analyzer error:', error);
+        clearInterval(stageInterval);
+        loader.style.display = 'none';
+        showToast('Network error. Please check if the backend server is running at http://localhost:8000', 'error');
+      } finally {
+        analyzeCompetitorBtn.disabled = false;
+      }
+    });
+
+    function renderTable(tableData, index) {
+      const title = tableData.Title || `Table ${index + 1}`;
+      const data = tableData.Data || [];
+      
+      if (data.length === 0) return '';
+      
+      const headers = data[0];
+      const rows = data.slice(1);
+      
+      let tableHTML = `
+        <div class="visualization-card">
+          <h4>${title}</h4>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  ${headers.map(h => `<th>${h}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(row => `
+                  <tr>
+                    ${row.map(cell => `<td>${cell}</td>`).join('')}
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      
+      return tableHTML;
+    }
+
+    // Store chart initialization queue
+    const chartInitQueue = [];
+
+    function renderPlot(plotData, index) {
+      const title = plotData.Chart_Title || plotData.chart_title || `Chart ${index + 1}`;
+      const seriesName = plotData.Series_Name || plotData.series_name || 'Data';
+      const xData = plotData.X_Axis_Data || plotData.x_axis_data || [];
+      const yData = plotData.Y_Axis_Data || plotData.y_axis_data || [];
+      
+      // Check if we have valid data
+      if (!xData || !yData || xData.length === 0 || yData.length === 0) {
+        return `
+          <div class="visualization-card">
+            <h4>${title}</h4>
+            <div class="chart-container" style="text-align: center; padding: var(--space-32); color: var(--color-text-secondary);">
+              No data available for this chart
+            </div>
+          </div>
+        `;
+      }
+      
+      // Check if we can render a chart (need valid numeric data)
+      const hasValidData = yData.length > 0 && yData.some(v => !isNaN(parseFloat(v)));
+      
+      if (!hasValidData) {
+        // Fallback: Display as a formatted table
+        return `
+          <div class="visualization-card">
+            <h4>${title}</h4>
+            <div class="data-table-fallback">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>${seriesName}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${xData.map((x, i) => `
+                    <tr>
+                      <td><strong>${x}</strong></td>
+                      <td>${yData[i]}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+      
+      const canvasId = `plot-canvas-${index}-${Date.now()}`;
+      
+      // Add to initialization queue
+      chartInitQueue.push({ canvasId, xData, yData, seriesName, index, title });
+      
+      let chartHTML = `
+        <div class="visualization-card">
+          <h4>${title}</h4>
+          <div class="chart-container" style="position: relative; height: 300px;">
+            <canvas id="${canvasId}"></canvas>
+          </div>
+          <div class="chart-data">
+            <strong>${seriesName}</strong>
+            <div class="data-preview">
+              ${xData.slice(0, 5).map((x, i) => `${x}: ${yData[i]}`).join(', ')}
+              ${xData.length > 5 ? '...' : ''}
+            </div>
+          </div>
+        </div>
+      `;
+      
+      return chartHTML;
+    }
+
+    // Initialize all queued charts
+    function initializeCharts() {
+      const chartColors = ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F', '#DB4545', '#D2BA4C', '#964325', '#944454', '#13343B'];
+      
+      chartInitQueue.forEach(({ canvasId, xData, yData, seriesName, index, title }) => {
+        try {
+          const canvas = document.getElementById(canvasId);
+          if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            // Determine chart type based on data
+            const isNumericData = yData.every(val => !isNaN(parseFloat(val)));
+            const chartType = isNumericData ? 'bar' : 'line';
+            
+            new Chart(ctx, {
+              type: chartType,
+              data: {
+                labels: xData,
+                datasets: [{
+                  label: seriesName,
+                  data: yData.map(v => parseFloat(v) || 0),
+                  backgroundColor: chartType === 'bar' ? chartColors[index % chartColors.length] + '99' : chartColors[0] + '33',
+                  borderColor: chartColors[index % chartColors.length],
+                  borderWidth: 2,
+                  tension: 0.3
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                      color: 'var(--color-text)',
+                      font: {
+                        size: 12
+                      }
+                    }
+                  },
+                  title: {
+                    display: false
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    ticks: {
+                      color: 'var(--color-text-secondary)',
+                      font: {
+                        size: 11
+                      }
+                    },
+                    grid: {
+                      color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                  },
+                  x: {
+                    ticks: {
+                      color: 'var(--color-text-secondary)',
+                      font: {
+                        size: 11
+                      }
+                    },
+                    grid: {
+                      color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                  }
+                }
+              }
+            });
+          }
+        } catch (error) {
+          console.error(`Failed to render chart ${canvasId}:`, error);
+          // Chart failed, data preview already shows the values
+        }
+      });
+      
+      // Clear the queue
+      chartInitQueue.length = 0;
+    }
+
+    function displayExtractedPlots(extractedPages) {
+      const tablesContainer = document.getElementById('tables-container');
+      const plotsContainer = document.getElementById('plots-container');
+      const visualizationsSection = document.getElementById('visualizations-section');
+      const pageImagesSection = document.getElementById('page-images-section');
+      
+      tablesContainer.innerHTML = '';
+      plotsContainer.innerHTML = '';
+      plotsGrid.innerHTML = '';
+      
+      let tablesHTML = [];
+      let plotsHTML = [];
+      let hasVisualizations = false;
+      
+      // Extract tables and plots from extracted_data
+      extractedPages.forEach(page => {
+        if (page.extracted_data) {
+          // Render tables
+          if (page.extracted_data.Tables && page.extracted_data.Tables.length > 0) {
+            page.extracted_data.Tables.forEach((table, idx) => {
+              tablesHTML.push(renderTable(table, idx));
+              hasVisualizations = true;
+            });
+          }
+          
+          // Render plots
+          if (page.extracted_data.Plots && page.extracted_data.Plots.length > 0) {
+            page.extracted_data.Plots.forEach((plot, idx) => {
+              plotsHTML.push(renderPlot(plot, idx));
+              hasVisualizations = true;
+            });
+          }
+        }
+      });
+      
+      // Display tables
+      if (tablesHTML.length > 0) {
+        tablesContainer.innerHTML = `
+          <div class="card" style="margin-bottom: var(--space-24);">
+            <div class="card-header">📋 Extracted Tables</div>
+            <div>${tablesHTML.join('')}</div>
+          </div>
+        `;
+      }
+      
+      // Display plots
+      if (plotsHTML.length > 0) {
+        plotsContainer.innerHTML = `
+          <div class="card" style="margin-bottom: var(--space-24);">
+            <div class="card-header">📈 Extracted Plots &amp; Charts</div>
+            <div>${plotsHTML.join('')}</div>
+          </div>
+        `;
+        
+        // Initialize all charts after DOM insertion
+        setTimeout(() => {
+          initializeCharts();
+        }, 200);
+      }
+      
+      // Show visualizations section if we have data
+      if (hasVisualizations) {
+        visualizationsSection.style.display = 'block';
+      }
+      
+      // Display page images (if available)
+      extractedPages.forEach((page, index) => {
+        if (page.image_base64) {
+          const plotCard = document.createElement('div');
+          plotCard.className = 'plot-card';
+          plotCard.innerHTML = `
+            <div class="plot-card-title">Page ${page.page_number || index + 1}</div>
+            <img src="data:image/png;base64,${page.image_base64}" 
+                 style="width: 100%; height: auto; border-radius: var(--radius-base);" 
+                 alt="Extracted visualization from page ${page.page_number || index + 1}">
+          `;
+          plotsGrid.appendChild(plotCard);
+        }
+      });
+      
+      if (plotsGrid.children.length > 0) {
+        pageImagesSection.style.display = 'block';
+      }
+      
+      // If no visualizations at all
+      if (!hasVisualizations && plotsGrid.children.length === 0) {
+        visualizationsSection.style.display = 'block';
+        tablesContainer.innerHTML = '<div class="card"><div style="text-align: center; padding: var(--space-32); color: var(--color-text-secondary);">No tables or plots found in this document</div></div>';
+      }
+    }
+
+    function displayAnalysisSummary(analysisSummary, fileName) {
+      const analysisSection = document.getElementById('analysisSection');
+      const analysisCards = document.getElementById('analysisCards');
+      
+      analysisCards.innerHTML = '';
+      let cardIndex = 0;
+
+      // Document Overview
+      if (analysisSummary.document_overview) {
+        const items = [
+          { label: 'Document Title', value: fileName },
+          { label: 'Total Pages', value: analysisSummary.document_overview.total_pages || 'N/A' },
+          { label: 'Document Type', value: analysisSummary.document_overview.document_type || 'N/A' },
+          { label: 'Analysis Date', value: new Date().toLocaleString() }
+        ];
+        analysisCards.appendChild(createAnalysisCard('📄', 'Document Overview', 'overview', items, null, cardIndex++));
+      }
+
+      // Key Insights
+      if (analysisSummary.key_insights && analysisSummary.key_insights.length > 0) {
+        analysisCards.appendChild(createAnalysisCard('💡', 'Key Insights', 'insights', null, analysisSummary.key_insights, cardIndex++));
+      }
+
+      // Data Summary
+      if (analysisSummary.data_summary) {
+        const items = [];
+        for (const [key, value] of Object.entries(analysisSummary.data_summary)) {
+          items.push({ label: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), value: String(value) });
+        }
+        analysisCards.appendChild(createAnalysisCard('📊', 'Data Summary', 'data', items, null, cardIndex++));
+      }
+
+      // Financial Metrics
+      if (analysisSummary.financial_metrics) {
+        const items = [];
+        for (const [key, value] of Object.entries(analysisSummary.financial_metrics)) {
+          items.push({ label: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), value: String(value) });
+        }
+        analysisCards.appendChild(createAnalysisCard('💰', 'Financial Metrics', 'financial', items, null, cardIndex++));
+      }
+
+      // Visual Analysis
+      if (analysisSummary.visual_analysis) {
+        const items = [];
+        for (const [key, value] of Object.entries(analysisSummary.visual_analysis)) {
+          items.push({ label: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), value: String(value) });
+        }
+        analysisCards.appendChild(createAnalysisCard('📈', 'Visual Analysis', 'visual', items, null, cardIndex++));
+      }
+
+      // Recommendations
+      if (analysisSummary.recommendations && analysisSummary.recommendations.length > 0) {
+        analysisCards.appendChild(createAnalysisCard('✅', 'Recommendations', 'recommendations', null, analysisSummary.recommendations, cardIndex++));
+      }
+
+      // Risk Factors
+      if (analysisSummary.risk_factors && analysisSummary.risk_factors.length > 0) {
+        analysisCards.appendChild(createAnalysisCard('⚠️', 'Risk Factors', 'risk', null, analysisSummary.risk_factors, cardIndex++));
+      }
+
+      analysisSection.style.display = 'block';
+      
+      // Add export buttons after analysis summary
+      const exportSection = document.createElement('div');
+      exportSection.className = 'export-actions';
+      exportSection.style.cssText = 'margin-top: var(--space-24); padding: var(--space-20); background: var(--color-surface); border: 1px solid var(--color-card-border); border-radius: var(--radius-lg); text-align: center;';
+      exportSection.innerHTML = `
+        <h4 style="margin-bottom: var(--space-16); color: var(--color-text); font-size: var(--font-size-lg);">📥 Export Complete Analysis</h4>
+        <div style="display: flex; gap: var(--space-12); justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="exportAIAnalysis('json')">
+            <span style="margin-right: var(--space-8);">📄</span> Export Data (JSON)
+          </button>
+          <button class="btn btn-primary" onclick="exportAIAnalysis('report')">
+            <span style="margin-right: var(--space-8);">📑</span> Export Report (TXT)
+          </button>
+        </div>
+      `;
+      analysisSection.appendChild(exportSection);
+    }
+
+    function displayCompetitorResults(competitorData) {
+      // Store data for export
+      latestCompetitorData = competitorData;
+      
+      competitorResults.style.display = 'block';
+      competitorCards.innerHTML = '';
+      
+      const card = document.createElement('div');
+      card.className = 'competitor-card';
+      card.style.animation = 'fadeInUp 0.5s ease-out backwards';
+      
+      const productsHtml = (competitorData.key_products_services || []).map(p => 
+        `<span style="display: inline-block; padding: 4px 8px; background: var(--color-bg-1); border-radius: var(--radius-sm); margin: 2px; font-size: var(--font-size-xs);">${p}</span>`
+      ).join('');
+      
+      const advantagesHtml = (competitorData.competitive_advantages || []).map(a => 
+        `<li style="margin-bottom: 6px; color: var(--color-text-secondary); font-size: var(--font-size-sm);">${a}</li>`
+      ).join('');
+      
+      const weaknessesHtml = (competitorData.weaknesses || []).map(w => 
+        `<li style="margin-bottom: 6px; color: var(--color-text-secondary); font-size: var(--font-size-sm);">${w}</li>`
+      ).join('');
+      
+      card.innerHTML = `
+        <div class="competitor-header">
+          <div class="competitor-logo">🏛️</div>
+          <div style="flex: 1;">
+            <div class="competitor-name">${competitorData.competitor_name || 'N/A'}</div>
+            <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">🌐 ${competitorData.competitor_url || 'N/A'}</div>
+          </div>
+        </div>
+        
+        <div style="margin: var(--space-16) 0; padding: var(--space-12); background: var(--color-bg-2); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
+          <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-8); display: flex; align-items: center; gap: 6px;">
+            📊 Market Position
+          </div>
+          <div style="color: var(--color-text); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);">${competitorData.market_position || 'N/A'}</div>
+        </div>
+
+        <div class="competitor-section">
+          <div class="section-title" onclick="toggleSection(this)">
+            <span>📋 Basic Information</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="section-content">
+            <div class="info-row">
+              <span class="info-label">👥 Target Audience:</span>
+              <span class="info-value">${competitorData.target_audience || 'N/A'}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">💰 Pricing Strategy:</span>
+              <span class="info-value">${competitorData.pricing_strategy || 'N/A'}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">🌍 Geographic Presence:</span>
+              <span class="info-value">${competitorData.geographic_presence || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="competitor-section">
+          <div class="section-title" onclick="toggleSection(this)">
+            <span>🚀 Products &amp; Technology</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="section-content">
+            <div style="margin-bottom: var(--space-12);">
+              <div style="font-weight: var(--font-weight-medium); margin-bottom: var(--space-6); font-size: var(--font-size-sm);">Key Products/Services:</div>
+              <div>${productsHtml || 'N/A'}</div>
+            </div>
+            <div class="info-row">
+              <span class="info-label">⚙️ Technology Stack:</span>
+              <span class="info-value">${competitorData.technology_stack || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="competitor-section">
+          <div class="section-title" onclick="toggleSection(this)">
+            <span>💼 Financial &amp; Metrics</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="section-content">
+            <div class="info-row">
+              <span class="info-label">💵 Funding/Revenue:</span>
+              <span class="info-value">${competitorData.funding_revenue || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="competitor-section">
+          <div class="section-title" onclick="toggleSection(this)">
+            <span>🎯 Competitive Analysis</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="section-content">
+            <div style="margin-bottom: var(--space-12);">
+              <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); color: var(--color-success); display: flex; align-items: center; gap: 4px;">
+                ✅ Competitive Advantages:
+              </div>
+              <ul style="margin: 0; padding-left: var(--space-20);">${advantagesHtml || '<li>N/A</li>'}</ul>
+            </div>
+            <div>
+              <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); color: var(--color-warning); display: flex; align-items: center; gap: 4px);">
+                ⚠️ Weaknesses:
+              </div>
+              <ul style="margin: 0; padding-left: var(--space-20);">${weaknessesHtml || '<li>N/A</li>'}</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="competitor-section">
+          <div class="section-title" onclick="toggleSection(this)">
+            <span>📰 Latest Updates</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="section-content">
+            <div class="info-row">
+              <span class="info-label">📢 Recent News:</span>
+              <span class="info-value">${competitorData.recent_news || 'N/A'}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">📱 Social Media:</span>
+              <span class="info-value">${competitorData.social_media_presence || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-16); padding: var(--space-12); background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3)); border-radius: var(--radius-base);">
+          <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); font-size: var(--font-size-sm);">🔍 Why They're a Competitor:</div>
+          <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">${competitorData.justification || 'N/A'}</div>
+        </div>
+        
+        ${competitorData.key_strength ? `
+        <div style="margin-top: var(--space-16); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-base); border-left: 3px solid var(--color-success);">
+          <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); font-size: var(--font-size-sm);">💪 Key Strength:</div>
+          <div style="color: var(--color-text); font-size: var(--font-size-sm);">${competitorData.key_strength}</div>
+        </div>
+        ` : ''}
+      `;
+      competitorCards.appendChild(card);
+      
+      // Add export buttons after competitor results
+      const exportSection = document.createElement('div');
+      exportSection.className = 'export-actions';
+      exportSection.style.cssText = 'margin-top: var(--space-24); padding: var(--space-20); background: var(--color-surface); border: 1px solid var(--color-card-border); border-radius: var(--radius-lg); text-align: center;';
+      exportSection.innerHTML = `
+        <h4 style="margin-bottom: var(--space-16); color: var(--color-text); font-size: var(--font-size-lg);">📥 Export Analysis</h4>
+        <div style="display: flex; gap: var(--space-12); justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="exportCompetitorAnalysis('json')">
+            <span style="margin-right: var(--space-8);">📄</span> Export as JSON
+          </button>
+          <button class="btn btn-primary" onclick="exportCompetitorAnalysis('pdf')">
+            <span style="margin-right: var(--space-8);">📑</span> Export as Report
+          </button>
+        </div>
+      `;
+      competitorCards.parentElement.appendChild(exportSection);
+    }
+
+    function generateCompetitorResults(companyName) {
+      const competitors = [
+        {
+          name: 'TechFlow Solutions',
+          url: 'techflow.com',
+          marketPosition: 'Market Leader - #1 in Enterprise Segment',
+          targetAudience: 'Large enterprises, Fortune 500 companies, Government agencies',
+          pricingStrategy: 'Premium pricing model - $2,500-$10,000/month based on usage',
+          keyProducts: ['AI Document Analyzer Pro', 'Enterprise RAG Suite', 'Visual Intelligence Platform', 'API Gateway'],
+          techStack: 'Python, TensorFlow, AWS, Kubernetes, PostgreSQL',
+          fundingRevenue: 'Series C - $85M raised, $45M ARR',
+          geographicPresence: 'North America, Europe, Asia-Pacific (15 countries)',
+          justification: 'Direct competitor offering similar AI-powered document analysis tools with strong market presence in enterprise segment.',
+          strengths: 'Advanced ML models, Enterprise integration, 24/7 support',
+          competitiveAdvantages: [
+            'Industry-leading accuracy (98.5%) in document analysis',
+            'Strong enterprise partnerships with Microsoft and AWS',
+            'Comprehensive compliance certifications (SOC2, HIPAA, GDPR)',
+            'Robust API ecosystem with 500+ integrations',
+            'Dedicated account management and onboarding'
+          ],
+          weaknesses: [
+            'High cost prohibitive for SMBs',
+            'Complex setup requiring technical expertise',
+            'Limited customization without enterprise plan'
+          ],
+          recentNews: 'Just launched AI-powered chart generation feature and announced partnership with Salesforce',
+          socialMedia: '50K+ LinkedIn followers, 25K Twitter followers, high engagement',
+          comparison: 'Market leader with 35% share but higher pricing'
+        },
+        {
+          name: 'DataViz Pro',
+          url: 'datavizpro.io',
+          marketPosition: 'Strong Challenger - #2 in Visualization Space',
+          targetAudience: 'Data analysts, Business intelligence teams, Mid-market companies',
+          pricingStrategy: 'Tiered pricing - $99-$999/month with freemium option',
+          keyProducts: ['Chart Extractor Pro', 'Real-time Collaboration Suite', 'API Access Platform'],
+          techStack: 'React, Node.js, Google Cloud, MongoDB, D3.js',
+          fundingRevenue: 'Series B - $35M raised, $18M ARR',
+          geographicPresence: 'North America, Western Europe (8 countries)',
+          justification: 'Specializes in data visualization and chart extraction, targeting the same customer base with competitive features.',
+          strengths: 'Superior visualization engine, Real-time collaboration, API access',
+          competitiveAdvantages: [
+            'Best-in-class visualization rendering with 50+ chart types',
+            'Real-time collaborative editing features',
+            'Developer-friendly REST and GraphQL APIs',
+            'Fast processing speeds (3x faster than competitors)'
+          ],
+          weaknesses: [
+            'Limited RAG and natural language query capabilities',
+            'Smaller customer support team',
+            'Fewer enterprise-grade security features'
+          ],
+          recentNews: 'Released v3.0 with improved performance and launched freemium tier last quarter',
+          socialMedia: '18K LinkedIn followers, growing community presence',
+          comparison: 'Strong in visualization but lacks RAG capabilities'
+        },
+        {
+          name: 'InsightAI',
+          url: 'insightai.com',
+          marketPosition: 'Fast-Growing Disruptor - #5 Overall',
+          targetAudience: 'SMBs, Startups, Independent consultants, Small teams',
+          pricingStrategy: 'Aggressive pricing - $49-$299/month with 14-day trial',
+          keyProducts: ['Smart Document Chat', 'Quick Analysis Tool', 'Team Workspace'],
+          techStack: 'Python, FastAPI, Azure, Redis, OpenAI GPT-4',
+          fundingRevenue: 'Seed + Series A - $12M raised, $3M ARR',
+          geographicPresence: 'Primarily North America, expanding to Europe',
+          justification: 'Emerging competitor with RAG-based document analysis, gaining traction in SMB market with competitive pricing.',
+          strengths: 'Cost-effective, Easy integration, Growing feature set',
+          competitiveAdvantages: [
+            'Most affordable pricing in the market',
+            'Quick 5-minute setup process',
+            'Modern, intuitive user interface',
+            'Agile development with frequent updates'
+          ],
+          weaknesses: [
+            'Limited enterprise features and scalability',
+            'Smaller model accuracy compared to leaders',
+            'No dedicated support for lower tiers'
+          ],
+          recentNews: 'Acquired by venture-backed AI firm last month, planning major feature expansion',
+          socialMedia: '8K LinkedIn followers, active Twitter presence with growing community',
+          comparison: 'Fast-growing startup with 15% market share'
+        }
+      ];
+
+      competitorCards.innerHTML = '';
+      competitors.forEach((comp, index) => {
+        const card = document.createElement('div');
+        card.className = 'competitor-card';
+        card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s backwards`;
+        
+        const productsHtml = comp.keyProducts.map(p => `<span style="display: inline-block; padding: 4px 8px; background: var(--color-bg-1); border-radius: var(--radius-sm); margin: 2px; font-size: var(--font-size-xs);">${p}</span>`).join('');
+        const advantagesHtml = comp.competitiveAdvantages.map(a => `<li style="margin-bottom: 6px; color: var(--color-text-secondary); font-size: var(--font-size-sm);">${a}</li>`).join('');
+        const weaknessesHtml = comp.weaknesses.map(w => `<li style="margin-bottom: 6px; color: var(--color-text-secondary); font-size: var(--font-size-sm);">${w}</li>`).join('');
+        
+        card.innerHTML = `
+          <div class="competitor-header">
+            <div class="competitor-logo">🏛️</div>
+            <div style="flex: 1;">
+              <div class="competitor-name">${comp.name}</div>
+              <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">🌐 ${comp.url}</div>
+            </div>
+          </div>
+          
+          <div style="margin: var(--space-16) 0; padding: var(--space-12); background: var(--color-bg-2); border-radius: var(--radius-base); border-left: 3px solid var(--color-primary);">
+            <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-8); display: flex; align-items: center; gap: 6px;">
+              📊 Market Position
+            </div>
+            <div style="color: var(--color-text); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);">${comp.marketPosition}</div>
+          </div>
+
+          <div class="competitor-section">
+            <div class="section-title" onclick="toggleSection(this)">
+              <span>📋 Basic Information</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+              <div class="info-row">
+                <span class="info-label">👥 Target Audience:</span>
+                <span class="info-value">${comp.targetAudience}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">💰 Pricing Strategy:</span>
+                <span class="info-value">${comp.pricingStrategy}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">🌍 Geographic Presence:</span>
+                <span class="info-value">${comp.geographicPresence}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="competitor-section">
+            <div class="section-title" onclick="toggleSection(this)">
+              <span>🚀 Products &amp; Technology</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+              <div style="margin-bottom: var(--space-12);">
+                <div style="font-weight: var(--font-weight-medium); margin-bottom: var(--space-6); font-size: var(--font-size-sm);">Key Products/Services:</div>
+                <div>${productsHtml}</div>
+              </div>
+              <div class="info-row">
+                <span class="info-label">⚙️ Technology Stack:</span>
+                <span class="info-value">${comp.techStack}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="competitor-section">
+            <div class="section-title" onclick="toggleSection(this)">
+              <span>💼 Financial &amp; Metrics</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+              <div class="info-row">
+                <span class="info-label">💵 Funding/Revenue:</span>
+                <span class="info-value">${comp.fundingRevenue}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">📈 Market Comparison:</span>
+                <span class="info-value">${comp.comparison}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="competitor-section">
+            <div class="section-title" onclick="toggleSection(this)">
+              <span>🎯 Competitive Analysis</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+              <div style="margin-bottom: var(--space-12);">
+                <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); color: var(--color-success); display: flex; align-items: center; gap: 4px;">
+                  ✅ Competitive Advantages:
+                </div>
+                <ul style="margin: 0; padding-left: var(--space-20);">${advantagesHtml}</ul>
+              </div>
+              <div>
+                <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); color: var(--color-warning); display: flex; align-items: center; gap: 4px;">
+                  ⚠️ Weaknesses:
+                </div>
+                <ul style="margin: 0; padding-left: var(--space-20);">${weaknessesHtml}</ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="competitor-section">
+            <div class="section-title" onclick="toggleSection(this)">
+              <span>📰 Latest Updates</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+              <div class="info-row">
+                <span class="info-label">📢 Recent News:</span>
+                <span class="info-value">${comp.recentNews}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">📱 Social Media:</span>
+                <span class="info-value">${comp.socialMedia}</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-16); padding: var(--space-12); background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3)); border-radius: var(--radius-base);">
+            <div style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-6); font-size: var(--font-size-sm);">🔍 Why They're a Competitor:</div>
+            <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">${comp.justification}</div>
+          </div>
+        `;
+        competitorCards.appendChild(card);
+      });
+
+      competitorResults.style.display = 'block';
+    }
+
+    // Chat functionality
+    const chatSidebar = document.getElementById('chatSidebar');
+    const chatClose = document.getElementById('chatClose');
+    const chatOverlay = document.getElementById('chatOverlay');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatButton.addEventListener('click', () => {
+      chatSidebar.classList.add('open');
+      chatOverlay.classList.add('active');
+      chatButton.style.display = 'none';
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatSidebar.classList.remove('open');
+      chatOverlay.classList.remove('active');
+      chatButton.style.display = 'flex';
+    });
+
+    // Close chat when clicking overlay
+    chatOverlay.addEventListener('click', () => {
+      chatSidebar.classList.remove('open');
+      chatOverlay.classList.remove('active');
+      chatButton.style.display = 'flex';
+    });
+
+    function addMessage(text, type) {
+      const message = document.createElement('div');
+      message.className = `message ${type}`;
+      
+      if (type === 'assistant' && typeof marked !== 'undefined') {
+        // Parse markdown for assistant messages
+        const messageContent = document.createElement('div');
+        messageContent.className = 'message-content';
+        messageContent.innerHTML = marked.parse(text);
+        message.appendChild(messageContent);
+      } else {
+        // Plain text for user messages
+        message.textContent = text;
+      }
+      
+      chatMessages.appendChild(message);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendRagQuery(query) {
+      if (!window.currentCollectionName) {
+        console.error('❌ No collection name available');
+        showToast('Please upload a document first', 'error');
+        return null;
+      }
+      
+      console.log('🔍 Sending RAG query:', query);
+      console.log('📚 Using collection:', window.currentCollectionName);
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/rag/query`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: query,
+            collection_name: window.currentCollectionName
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Query failed');
+        }
+        
+        const result = await response.json();
+        console.log('📥 RAG Query Response:', result);
+        
+        if (result.success && result.data && result.data.answer) {
+          return result.data.answer;
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } catch (error) {
+        console.error('❌ RAG Query error:', error);
+        throw error;
+      }
+    }
+
+    sendMessage.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (text) {
+        if (!window.currentCollectionName) {
+          showToast('Please upload a document first', 'error');
+          console.error('❌ No collection name - document not uploaded');
+          return;
+        }
+        
+        addMessage(text, 'user');
+        chatInput.value = '';
+        
+        // Show typing indicator
+        const typingId = 'typing-' + Date.now();
+        const typingMsg = document.createElement('div');
+        typingMsg.className = 'message assistant';
+        typingMsg.id = typingId;
+        typingMsg.textContent = '💭 Thinking...';
+        chatMessages.appendChild(typingMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        try {
+          const answer = await sendRagQuery(text);
+          
+          // Remove typing indicator
+          document.getElementById(typingId)?.remove();
+          
+          if (answer) {
+            addMessage(answer, 'assistant');
+          } else {
+            throw new Error('No answer received');
+          }
+        } catch (error) {
+          console.error('❌ Chat error:', error);
+          document.getElementById(typingId)?.remove();
+          addMessage('Sorry, I encountered an error processing your question. Please check if the backend server is running.', 'assistant');
+          showToast('Failed to get response from AI', 'error');
+        }
+      }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage.click();
+      }
+    });
+
+    // Generate Analysis Summary for AI Analyzer
+    function generateAnalysisSummary(fileName) {
+      const analysisSection = document.getElementById('analysisSection');
+      const analysisCards = document.getElementById('analysisCards');
+      
+      const analysisData = {
+        documentOverview: {
+          icon: '📄',
+          title: 'Document Overview',
+          items: [
+            { label: 'Document Title', value: fileName },
+            { label: 'Total Pages Analyzed', value: '45 pages' },
+            { label: 'Document Type', value: 'Financial Report / Business Analytics' },
+            { label: 'Analysis Timestamp', value: new Date().toLocaleString() }
+          ]
+        },
+        keyInsights: {
+          icon: '💡',
+          title: 'Key Insights',
+          points: [
+            'Revenue shows consistent upward trend with 23% year-over-year growth',
+            'Q4 performance exceeded projections by 15%, indicating strong market position',
+            'Customer acquisition cost decreased by 18% while retention improved to 94%',
+            'International markets contributed 42% of total revenue, up from 35% last year',
+            'Product diversification strategy yielded 3 new revenue streams totaling $12M',
+            'Operational efficiency improved with 8% reduction in overhead costs',
+            'Digital transformation initiatives resulted in 30% faster processing times'
+          ]
+        },
+        dataSummary: {
+          icon: '📊',
+          title: 'Data Summary',
+          items: [
+            { label: 'Number of Tables Found', value: '12 tables' },
+            { label: 'Number of Charts/Plots Found', value: '18 visualizations' },
+            { label: 'Key Metrics Tracked', value: 'Revenue, Growth Rate, Market Share, Profit Margins, Customer Metrics, Operational KPIs' },
+            { label: 'Date Range of Data', value: 'January 2024 - December 2024 (Full Year)' }
+          ]
+        },
+        financialMetrics: {
+          icon: '💰',
+          title: 'Financial Metrics',
+          items: [
+            { label: 'Revenue Trends', value: '$45M ARR with 23% YoY growth, projected $58M for next year' },
+            { label: 'Profit Margins', value: 'Gross margin: 68%, Net margin: 22% (industry-leading)' },
+            { label: 'Growth Rates', value: 'Q1: 18%, Q2: 21%, Q3: 25%, Q4: 28% (accelerating trend)' },
+            { label: 'Key Performance Indicators', value: 'CAC: $850 (-18%), LTV: $12,400 (+15%), Churn: 6% (-2%)' }
+          ]
+        },
+        visualAnalysis: {
+          icon: '📈',
+          title: 'Visual Analysis',
+          items: [
+            { label: 'Chart Types Identified', value: 'Line charts (8), Bar charts (5), Pie charts (3), Scatter plots (2)' },
+            { label: 'Data Completeness Score', value: '96/100 - Excellent data quality with minimal gaps' },
+            { label: 'Quality Assessment', value: 'High-resolution charts, consistent formatting, clear labels, professional presentation' }
+          ]
+        },
+        recommendations: {
+          icon: '✅',
+          title: 'Recommendations',
+          points: [
+            'Continue investment in high-growth international markets, particularly APAC region showing 35% growth',
+            'Scale successful digital transformation initiatives to remaining departments for enterprise-wide efficiency',
+            'Capitalize on improved margins by increasing R&D budget to maintain competitive advantage',
+            'Implement predictive analytics for customer churn to further improve retention rates',
+            'Expand product portfolio in identified high-demand segments with proven market fit'
+          ]
+        },
+        riskFactors: {
+          icon: '⚠️',
+          title: 'Risk Factors',
+          points: [
+            'Market concentration: Top 10 customers represent 45% of revenue (diversification needed)',
+            'Currency exposure: 42% international revenue exposed to forex fluctuations',
+            'Competitive pressure: 3 new market entrants identified in Q4 analysis',
+            'Data gaps: Limited visibility into customer satisfaction metrics for 12% of accounts',
+            'Regulatory uncertainty: Pending compliance requirements in 2 key markets'
+          ]
+        }
+      };
+
+      analysisCards.innerHTML = '';
+      let cardIndex = 0;
+
+      // Document Overview Card
+      const overviewCard = createAnalysisCard(
+        analysisData.documentOverview.icon,
+        analysisData.documentOverview.title,
+        'overview',
+        analysisData.documentOverview.items,
+        null,
+        cardIndex++
+      );
+      analysisCards.appendChild(overviewCard);
+
+      // Key Insights Card
+      const insightsCard = createAnalysisCard(
+        analysisData.keyInsights.icon,
+        analysisData.keyInsights.title,
+        'insights',
+        null,
+        analysisData.keyInsights.points,
+        cardIndex++
+      );
+      analysisCards.appendChild(insightsCard);
+
+      // Data Summary Card
+      const dataCard = createAnalysisCard(
+        analysisData.dataSummary.icon,
+        analysisData.dataSummary.title,
+        'data',
+        analysisData.dataSummary.items,
+        null,
+        cardIndex++
+      );
+      analysisCards.appendChild(dataCard);
+
+      // Financial Metrics Card
+      const financialCard = createAnalysisCard(
+        analysisData.financialMetrics.icon,
+        analysisData.financialMetrics.title,
+        'financial',
+        analysisData.financialMetrics.items,
+        null,
+        cardIndex++
+      );
+      analysisCards.appendChild(financialCard);
+
+      // Visual Analysis Card
+      const visualCard = createAnalysisCard(
+        analysisData.visualAnalysis.icon,
+        analysisData.visualAnalysis.title,
+        'visual',
+        analysisData.visualAnalysis.items,
+        null,
+        cardIndex++
+      );
+      analysisCards.appendChild(visualCard);
+
+      // Recommendations Card
+      const recommendationsCard = createAnalysisCard(
+        analysisData.recommendations.icon,
+        analysisData.recommendations.title,
+        'recommendations',
+        null,
+        analysisData.recommendations.points,
+        cardIndex++
+      );
+      analysisCards.appendChild(recommendationsCard);
+
+      // Risk Factors Card
+      const riskCard = createAnalysisCard(
+        analysisData.riskFactors.icon,
+        analysisData.riskFactors.title,
+        'risk',
+        null,
+        analysisData.riskFactors.points,
+        cardIndex++
+      );
+      analysisCards.appendChild(riskCard);
+
+      analysisSection.style.display = 'block';
+    }
+
+    function createAnalysisCard(icon, title, type, items, points, index) {
+      const card = document.createElement('div');
+      card.className = 'competitor-card';
+      card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s backwards`;
+
+      let contentHtml = '';
+      
+      // Header with gradient background
+      const gradients = {
+        overview: 'linear-gradient(135deg, var(--color-bg-1), var(--color-bg-2))',
+        insights: 'linear-gradient(135deg, var(--color-bg-2), var(--color-bg-3))',
+        data: 'linear-gradient(135deg, var(--color-bg-3), var(--color-bg-4))',
+        financial: 'linear-gradient(135deg, var(--color-bg-5), var(--color-bg-6))',
+        visual: 'linear-gradient(135deg, var(--color-bg-6), var(--color-bg-7))',
+        recommendations: 'linear-gradient(135deg, var(--color-bg-7), var(--color-bg-8))',
+        risk: 'linear-gradient(135deg, var(--color-bg-4), var(--color-bg-1))'
+      };
+
+      contentHtml += `
+        <div style="padding: var(--space-16); background: ${gradients[type]}; border-radius: var(--radius-base); margin-bottom: var(--space-16);">
+          <div style="font-size: var(--font-size-2xl); margin-bottom: var(--space-8);">${icon}</div>
+          <div style="font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);">${title}</div>
+        </div>
+      `;
+
+      // Items (label-value pairs)
+      if (items) {
+        items.forEach(item => {
+          contentHtml += `
+            <div class="info-row">
+              <span class="info-label">${item.label}:</span>
+              <span class="info-value">${item.value}</span>
+            </div>
+          `;
+        });
+      }
+
+      // Points (bullet list)
+      if (points) {
+        contentHtml += '<ul style="margin: 0; padding-left: var(--space-20); list-style: none;">';
+        points.forEach(point => {
+          const bulletColor = type === 'risk' ? 'var(--color-warning)' : 'var(--color-success)';
+          contentHtml += `
+            <li style="margin-bottom: var(--space-12); color: var(--color-text); font-size: var(--font-size-sm); position: relative; padding-left: var(--space-12);">
+              <span style="position: absolute; left: 0; color: ${bulletColor}; font-weight: var(--font-weight-bold);">•</span>
+              ${point}
+            </li>
+          `;
+        });
+        contentHtml += '</ul>';
+      }
+
+      card.innerHTML = contentHtml;
+      return card;
+    }
+
+    // Toast notification system
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        background: ${type === 'success' ? 'var(--color-success)' : type === 'error' ? 'var(--color-error)' : 'var(--color-info)'};
+        color: white;
+        border-radius: var(--radius-base);
+        box-shadow: var(--shadow-lg);
+        z-index: 10001;
+        font-weight: var(--font-weight-medium);
+        max-width: 400px;
+        animation: slideIn 0.3s ease-out;
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // Add animation styles
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Video Pitch Analyzer - Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabName = btn.dataset.tab;
+        
+        // Update active button
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Show corresponding tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(`${tabName}-tab`).classList.add('active');
+      });
+    });
+
+    // Video Pitch Analyzer - YouTube form submission
+    document.getElementById('youtube-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const youtubeUrl = formData.get('youtube_url');
+      
+      if (!youtubeUrl) {
+        showToast('Please enter a YouTube URL', 'error');
+        return;
+      }
+      
+      // Show loader with stages
+      showVideoLoader();
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/video-pitch/analyze`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ youtube_url: youtubeUrl })
+        });
+        
+        if (!response.ok) {
+          throw new Error('API request failed');
+        }
+        
+        const result = await response.json();
+        
+        hideVideoLoader();
+        
+        if (result.success && result.data) {
+          displayVideoAnalysis(result.data);
+          showToast('Video analysis completed!', 'success');
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } catch (error) {
+        console.error('Video analysis error:', error);
+        hideVideoLoader();
+        showToast('Error analyzing video. Please check if the backend server is running.', 'error');
+      }
+    });
+
+    // Video Pitch Analyzer - Video upload form submission
+    document.getElementById('video-upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const fileInput = document.getElementById('video-file-input');
+      const file = fileInput.files[0];
+      
+      if (!file) {
+        showToast('Please select a video file', 'error');
+        return;
+      }
+      
+      // Validate file type
+      if (!file.type.startsWith('video/')) {
+        showToast('Please select a valid video file', 'error');
+        return;
+      }
+      
+      // Show video upload loader
+      showVideoUploadLoader();
+      
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        const response = await fetch(`${API_BASE_URL}/api/video-pitch/upload`, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const data = await response.json();
+        
+        hideVideoUploadLoader();
+        
+        if (data.success) {
+          displayVideoAnalysis(data.data);
+          showToast('Video analysis completed!', 'success');
+        } else {
+          showToast('Analysis failed: ' + data.error, 'error');
+        }
+      } catch (error) {
+        hideVideoUploadLoader();
+        showToast('Error: ' + error.message, 'error');
+      }
+    });
+
+    // File input change handler with visual feedback
+    document.getElementById('video-file-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const placeholder = document.querySelector('.upload-placeholder h4');
+        if (placeholder) {
+          placeholder.textContent = `Selected: ${file.name}`;
+        }
+        showToast(`File selected: ${file.name}`, 'success');
+      }
+    });
+
+    function showVideoLoader() {
+      const loader = document.getElementById('video-loader');
+      const results = document.getElementById('video-results');
+      
+      results.style.display = 'none';
+      loader.style.display = 'block';
+      
+      // Update stages for YouTube analysis
+      updateLoaderStages([
+        { icon: '🎬', text: 'Extracting transcript...' },
+        { icon: '🧠', text: 'Analyzing content...' },
+        { icon: '💡', text: 'Extracting insights...' },
+        { icon: '✨', text: 'Generating summary...' }
+      ]);
+      
+      // Reset all stages
+      document.querySelectorAll('#video-loader .stage').forEach(stage => {
+        stage.classList.remove('active', 'completed');
+      });
+      document.querySelector('#video-loader .stage[data-stage="1"]').classList.add('active');
+      
+      // Stage progression
+      let currentStage = 1;
+      window.videoLoaderInterval = setInterval(() => {
+        const prevStage = document.querySelector(`#video-loader .stage[data-stage="${currentStage}"]`);
+        if (prevStage) {
+          prevStage.classList.remove('active');
+          prevStage.classList.add('completed');
+        }
+        
+        currentStage++;
+        if (currentStage <= 4) {
+          const nextStage = document.querySelector(`#video-loader .stage[data-stage="${currentStage}"]`);
+          if (nextStage) {
+            nextStage.classList.add('active');
+          }
+        } else {
+          clearInterval(window.videoLoaderInterval);
+        }
+      }, 2000);
+    }
+    
+    function showVideoUploadLoader() {
+      const loader = document.getElementById('video-loader');
+      const results = document.getElementById('video-results');
+      
+      results.style.display = 'none';
+      loader.style.display = 'block';
+      
+      // Update stages for video upload
+      updateLoaderStages([
+        { icon: '📤', text: 'Uploading video...' },
+        { icon: '☁️', text: 'Processing with Gemini...' },
+        { icon: '🤖', text: 'Analyzing content...' },
+        { icon: '✨', text: 'Generating insights...' }
+      ]);
+      
+      // Reset all stages
+      document.querySelectorAll('#video-loader .stage').forEach(stage => {
+        stage.classList.remove('active', 'completed');
+      });
+      document.querySelector('#video-loader .stage[data-stage="1"]').classList.add('active');
+      
+      // Stage progression for upload
+      let currentStage = 1;
+      window.videoUploadStageInterval = setInterval(() => {
+        const prevStage = document.querySelector(`#video-loader .stage[data-stage="${currentStage}"]`);
+        if (prevStage) {
+          prevStage.classList.remove('active');
+          prevStage.classList.add('completed');
+        }
+        
+        currentStage++;
+        if (currentStage <= 4) {
+          const nextStage = document.querySelector(`#video-loader .stage[data-stage="${currentStage}"]`);
+          if (nextStage) {
+            nextStage.classList.add('active');
+          }
+        } else {
+          clearInterval(window.videoUploadStageInterval);
+        }
+      }, 2500); // Change stage every 2.5 seconds
+    }
+    
+    function hideVideoUploadLoader() {
+      const loader = document.getElementById('video-loader');
+      loader.style.display = 'none';
+      
+      // Clear the stage interval
+      if (window.videoUploadStageInterval) {
+        clearInterval(window.videoUploadStageInterval);
+      }
+    }
+    
+    function updateLoaderStages(stages) {
+      const loaderStages = document.querySelectorAll('#video-loader .stage');
+      stages.forEach((stage, index) => {
+        if (loaderStages[index]) {
+          const icon = loaderStages[index].querySelector('.stage-icon');
+          const text = loaderStages[index].querySelector('.stage-text');
+          if (icon) icon.textContent = stage.icon;
+          if (text) text.textContent = stage.text;
+        }
+      });
+    }
+
+    function hideVideoLoader() {
+      if (window.videoLoaderInterval) {
+        clearInterval(window.videoLoaderInterval);
+      }
+      document.getElementById('video-loader').style.display = 'none';
+    }
+
+    function displayVideoAnalysis(data) {
+      latestVideoAnalysis = data;
+      
+      // Video Info
+      document.getElementById('video-info').innerHTML = `
+        <div class="info-item">
+          <strong>Title:</strong> ${data.video_title || 'N/A'}
+        </div>
+        <div class="info-item">
+          <strong>Duration:</strong> ${data.duration || 'N/A'}
+        </div>
+        <div class="info-item">
+          <strong>Channel:</strong> ${data.channel || 'N/A'}
+        </div>
+        <div class="info-item">
+          <strong>URL:</strong> <a href="${data.youtube_url || '#'}" target="_blank" style="color: var(--color-primary);">${data.youtube_url || 'N/A'}</a>
+        </div>
+      `;
+      
+      // Executive Summary
+      document.getElementById('executive-summary').innerHTML = `
+        <p style="line-height: 1.6; color: var(--color-text);">${data.executive_summary || 'No summary available'}</p>
+      `;
+      
+      // Key Insights
+      const keyInsights = data.key_insights || [];
+      document.getElementById('key-insights').innerHTML = 
+        keyInsights.length > 0 
+          ? keyInsights.map(insight => `<li style="margin-bottom: var(--space-8); color: var(--color-text);">${insight}</li>`).join('')
+          : '<li style="color: var(--color-text-secondary);">No insights available</li>';
+      
+      // Main Points
+      const mainPoints = data.main_points || [];
+      document.getElementById('main-points').innerHTML =
+        mainPoints.length > 0
+          ? mainPoints.map(point => `<li style="margin-bottom: var(--space-8); color: var(--color-text);">${point}</li>`).join('')
+          : '<li style="color: var(--color-text-secondary);">No main points available</li>';
+      
+      // Notable Slides
+      const notableSlides = data.notable_slides || [];
+      document.getElementById('notable-slides').innerHTML =
+        notableSlides.length > 0
+          ? notableSlides.map((slide) => `
+            <div class="slide-item">
+              <div class="slide-timestamp">${slide.timestamp || '00:00'}</div>
+              <div class="slide-content">${slide.description || 'No description'}</div>
+            </div>
+          `).join('')
+          : '<div style="color: var(--color-text-secondary); padding: var(--space-12);">No notable slides identified</div>';
+      
+      // Action Items
+      const actionItems = data.action_items || [];
+      document.getElementById('action-items').innerHTML =
+        actionItems.length > 0
+          ? actionItems.map(item => `<li style="margin-bottom: var(--space-8); color: var(--color-text);">${item}</li>`).join('')
+          : '<li style="color: var(--color-text-secondary);">No action items available</li>';
+      
+      // Show results
+      document.getElementById('video-results').style.display = 'block';
+      
+      // Scroll to results
+      document.getElementById('video-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Export Video Analysis
+    window.exportVideoAnalysis = function(format) {
+      if (!latestVideoAnalysis) {
+        showToast('No analysis data to export', 'error');
+        return;
+      }
+      
+      if (format === 'json') {
+        const jsonStr = JSON.stringify(latestVideoAnalysis, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `video-pitch-analysis-${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('JSON exported successfully', 'success');
+      } else if (format === 'report') {
+        const reportContent = generateVideoAnalysisReport(latestVideoAnalysis);
+        const blob = new Blob([reportContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `video-pitch-report-${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Report exported successfully', 'success');
+      }
+    };
+
+    function generateVideoAnalysisReport(data) {
+      return `
+═══════════════════════════════════════════════════════════════════
+          VIDEO PITCH ANALYSIS REPORT
+═══════════════════════════════════════════════════════════════════
+
+Generated: ${new Date().toLocaleString()}
+Report Type: Video Pitch Intelligence Analysis
+
+═══════════════════════════════════════════════════════════════════
+1. VIDEO INFORMATION
+═══════════════════════════════════════════════════════════════════
+
+Title: ${data.video_title || 'N/A'}
+Duration: ${data.duration || 'N/A'}
+Channel: ${data.channel || 'N/A'}
+URL: ${data.youtube_url || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+2. EXECUTIVE SUMMARY
+═══════════════════════════════════════════════════════════════════
+
+${data.executive_summary || 'No summary available'}
+
+═══════════════════════════════════════════════════════════════════
+3. KEY INSIGHTS
+═══════════════════════════════════════════════════════════════════
+
+${(data.key_insights || []).map((insight, i) => `${i + 1}. ${insight}`).join('\n\n') || 'No insights available'}
+
+═══════════════════════════════════════════════════════════════════
+4. MAIN POINTS
+═══════════════════════════════════════════════════════════════════
+
+${(data.main_points || []).map((point, i) => `${i + 1}. ${point}`).join('\n\n') || 'No main points available'}
+
+═══════════════════════════════════════════════════════════════════
+5. NOTABLE SLIDES & MOMENTS
+═══════════════════════════════════════════════════════════════════
+
+${(data.notable_slides || []).map((slide) => `
+[${slide.timestamp || '00:00'}] ${slide.description || 'No description'}
+`).join('\n') || 'No notable slides identified'}
+
+═══════════════════════════════════════════════════════════════════
+6. ACTION ITEMS & RECOMMENDATIONS
+═══════════════════════════════════════════════════════════════════
+
+${(data.action_items || []).map((item, i) => `${i + 1}. ${item}`).join('\n\n') || 'No action items available'}
+
+═══════════════════════════════════════════════════════════════════
+END OF REPORT
+═══════════════════════════════════════════════════════════════════
+
+This report was generated by AI Analyst Platform.
+For internal use only. Confidential information.
+`;
+    }
+
+    // Toggle section functionality for competitor cards
+    window.toggleSection = function(element) {
+      const content = element.nextElementSibling;
+      const icon = element.querySelector('.toggle-icon');
+      
+      if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        element.classList.remove('collapsed');
+      } else {
+        content.classList.add('collapsed');
+        element.classList.add('collapsed');
+      }
+    };
+
+    // Export functionality for Competitor Analyzer
+    window.exportCompetitorAnalysis = function(format) {
+      if (!latestCompetitorData) {
+        showToast('No analysis data to export', 'error');
+        return;
+      }
+      
+      if (format === 'json') {
+        // Export as JSON
+        const jsonStr = JSON.stringify(latestCompetitorData, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const fileName = (latestCompetitorData.competitor_name || 'competitor').replace(/\s+/g, '-');
+        a.download = `competitor-analysis-${fileName}-${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('JSON exported successfully', 'success');
+      } else if (format === 'pdf') {
+        // Export as formatted text report
+        const reportContent = generateCompetitorReport(latestCompetitorData);
+        const blob = new Blob([reportContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const fileName = (latestCompetitorData.competitor_name || 'competitor').replace(/\s+/g, '-');
+        a.download = `competitor-analysis-${fileName}-${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Analysis exported successfully', 'success');
+      }
+    };
+
+    function generateCompetitorReport(data) {
+      const formatArray = (arr) => {
+        if (Array.isArray(arr)) {
+          return arr.map((item, i) => `${i + 1}. ${item}`).join('\n');
+        }
+        return arr || 'N/A';
+      };
+
+      return `
+═══════════════════════════════════════════════════════════════════
+          COMPETITOR ANALYSIS REPORT
+═══════════════════════════════════════════════════════════════════
+
+Generated: ${new Date().toLocaleString()}
+Report Type: Competitive Intelligence Analysis
+
+═══════════════════════════════════════════════════════════════════
+1. TARGET COMPANY
+═══════════════════════════════════════════════════════════════════
+
+${data.target_company || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+2. IDENTIFIED COMPETITOR
+═══════════════════════════════════════════════════════════════════
+
+Company Name: ${data.competitor_name || 'N/A'}
+Website: ${data.competitor_url || 'N/A'}
+Market Position: ${data.market_position || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+3. BUSINESS OVERVIEW
+═══════════════════════════════════════════════════════════════════
+
+Target Audience:
+${data.target_audience || 'N/A'}
+
+Pricing Strategy:
+${data.pricing_strategy || 'N/A'}
+
+Geographic Presence:
+${data.geographic_presence || 'N/A'}
+
+Technology Stack:
+${data.technology_stack || 'N/A'}
+
+Funding & Revenue:
+${data.funding_revenue || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+4. KEY PRODUCTS & SERVICES
+═══════════════════════════════════════════════════════════════════
+
+${formatArray(data.key_products_services)}
+
+═══════════════════════════════════════════════════════════════════
+5. COMPETITIVE ANALYSIS
+═══════════════════════════════════════════════════════════════════
+
+Why They Are a Competitor:
+${data.justification || 'N/A'}
+
+Key Strength / USP:
+${data.key_strength || 'N/A'}
+
+Competitive Advantages:
+${formatArray(data.competitive_advantages)}
+
+Identified Weaknesses:
+${formatArray(data.weaknesses)}
+
+═══════════════════════════════════════════════════════════════════
+6. MARKET INTELLIGENCE
+═══════════════════════════════════════════════════════════════════
+
+Recent News & Updates:
+${data.recent_news || 'N/A'}
+
+Social Media Presence:
+${data.social_media_presence || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+END OF REPORT
+═══════════════════════════════════════════════════════════════════
+
+This report was generated by AI Analyst Platform.
+For internal use only. Confidential information.
+`;
+    }
+
+    // Export functionality for AI Analyzer
+    window.exportAIAnalysis = function(format) {
+      if (!latestAIAnalyzerData) {
+        showToast('No analysis data to export', 'error');
+        return;
+      }
+      
+      if (format === 'json') {
+        // Export full data including tables and plots
+        const jsonStr = JSON.stringify(latestAIAnalyzerData, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ai-analysis-full-data-${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Full data exported as JSON', 'success');
+      } else if (format === 'report') {
+        // Export as formatted report
+        const reportContent = generateAIAnalysisReport(latestAIAnalyzerData);
+        const blob = new Blob([reportContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ai-analysis-report-${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Analysis report exported', 'success');
+      }
+    };
+
+    function generateAIAnalysisReport(data) {
+      const formatArray = (arr) => {
+        if (Array.isArray(arr)) {
+          return arr.map((item, i) => `${i + 1}. ${item}`).join('\n\n');
+        }
+        return arr || 'N/A';
+      };
+
+      const analysis = data.analysis_summary || {};
+      const docOverview = analysis.document_overview || {};
+      const dataSummary = analysis.data_summary || {};
+      const keyInsights = analysis.key_insights || [];
+      const financialMetrics = analysis.financial_metrics || {};
+      const visualAnalysis = analysis.visual_analysis || {};
+      const recommendations = analysis.recommendations || [];
+      const riskFactors = analysis.risk_factors || [];
+
+      return `
+═══════════════════════════════════════════════════════════════════
+          AI DOCUMENT ANALYSIS REPORT
+═══════════════════════════════════════════════════════════════════
+
+Generated: ${new Date().toLocaleString()}
+Report Type: Automated Document Intelligence Analysis
+
+═══════════════════════════════════════════════════════════════════
+1. DOCUMENT OVERVIEW
+═══════════════════════════════════════════════════════════════════
+
+Pages Analyzed: ${data.pages_analyzed || docOverview.pages_analyzed || 'N/A'}
+Document Type: ${docOverview.document_type || 'N/A'}
+Analysis Timestamp: ${docOverview.analysis_timestamp || new Date().toLocaleString()}
+
+═══════════════════════════════════════════════════════════════════
+2. DATA SUMMARY
+═══════════════════════════════════════════════════════════════════
+
+Tables Found: ${dataSummary.tables_found || 'N/A'}
+Charts/Plots Found: ${dataSummary.charts_found || 'N/A'}
+Date Range: ${dataSummary.date_range || 'N/A'}
+
+Key Metrics Tracked:
+${formatArray(dataSummary.key_metrics)}
+
+═══════════════════════════════════════════════════════════════════
+3. KEY INSIGHTS
+═══════════════════════════════════════════════════════════════════
+
+${formatArray(keyInsights)}
+
+═══════════════════════════════════════════════════════════════════
+4. FINANCIAL METRICS ANALYSIS
+═══════════════════════════════════════════════════════════════════
+
+Revenue Trends:
+${financialMetrics.revenue_trends || 'N/A'}
+
+Profit Margins:
+${financialMetrics.profit_margins || 'N/A'}
+
+Growth Rates:
+${financialMetrics.growth_rates || 'N/A'}
+
+Key Performance Indicators:
+${financialMetrics.kpis || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+5. VISUAL DATA ANALYSIS
+═══════════════════════════════════════════════════════════════════
+
+Chart Types Identified:
+${visualAnalysis.chart_types || 'N/A'}
+
+Data Completeness Score:
+${visualAnalysis.completeness_score || 'N/A'}
+
+Quality Assessment:
+${visualAnalysis.quality_assessment || 'N/A'}
+
+═══════════════════════════════════════════════════════════════════
+6. RECOMMENDATIONS
+═══════════════════════════════════════════════════════════════════
+
+${formatArray(recommendations)}
+
+═══════════════════════════════════════════════════════════════════
+7. RISK FACTORS & CONSIDERATIONS
+═══════════════════════════════════════════════════════════════════
+
+${formatArray(riskFactors)}
+
+═══════════════════════════════════════════════════════════════════
+8. EXTRACTED DATA SUMMARY
+═══════════════════════════════════════════════════════════════════
+
+Total Pages with Visualizations: ${data.pages_analyzed || 'N/A'}
+
+Note: For detailed table data and plot coordinates, please refer to the 
+JSON export which contains the complete extracted data structure.
+
+═══════════════════════════════════════════════════════════════════
+END OF REPORT
+═══════════════════════════════════════════════════════════════════
+
+This report was generated by AI Analyst Platform.
+For internal use only. Confidential information.
+`;
+    }
+  </script>
+</body>
+</html>
