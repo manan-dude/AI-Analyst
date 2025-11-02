@@ -69,9 +69,11 @@
 - **Text Processing**: LangChain Text Splitters
 
 ### **Frontend**
-- **Pure HTML5, CSS3, Vanilla JavaScript**
+- **Refer to frontend README.md**
 - **Charting**: Chart.js 4.4.0
 - **Markdown**: Marked.js 11.0.0
+
+
 
 ### **Infrastructure**
 - **Python**: 3.8+
@@ -119,7 +121,7 @@ ai-analyst-platform/
 │   └── README.md
 │
 ├── frontend/                     # Frontend Application
-│   └── index.html               # Single-page application
+│   └── look the README.md               # look for it
 │
 ├── .gitignore
 └── README.md                     # This file
